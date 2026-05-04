@@ -120,19 +120,19 @@ class CommandWorker(QThread):
             print(f"命令执行失败: {e}")
             self.finished.emit(None)
 
-class WebDebuggerGo(QMainWindow):
+class AutoWebViewInspect(QMainWindow):
     log_received = Signal(object)
 
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("WebDebuggerGo - 自动化离线调试终端")
+        self.setWindowTitle("AutoWebViewInspect - 自动化离线调试终端")
         self.resize(1400, 900)
         
         # 1. 初始化数据与组件
         self.bridge = ADBDebuggerBridge()
         
         # 设置项目图标
-        self.icon_path = get_resource_path(os.path.join("static", "WebDebuggerGo.png"))
+        self.icon_path = get_resource_path(os.path.join("static", "App.png"))
         self.setWindowIcon(QIcon(self.icon_path))
         
         # 设置窗口背景色，防止初始白闪
@@ -378,7 +378,7 @@ class WebDebuggerGo(QMainWindow):
         final_url = f"{self.entry_url_base}?{urllib.parse.urlencode(params)}"
         self.browser.load(QUrl(final_url))
         self.current_page_id, self.current_ws_url = page_id, ws_url_raw
-        self.setWindowTitle(f"调试: {target.get('title')} - WebDebuggerGo")
+        self.setWindowTitle(f"调试: {target.get('title')} - AutoWebViewInspect")
 
     @Slot(list)
     def on_targets_found(self, targets):
@@ -525,6 +525,6 @@ class WebDebuggerGo(QMainWindow):
 if __name__ == "__main__":
     os.environ["QTWEBENGINE_CHROMIUM_FLAGS"] = "--disable-web-security --allow-file-access-from-files --remote-allow-origins=* --ignore-certificate-errors --no-sandbox"
     app = QApplication(sys.argv)
-    window = WebDebuggerGo()
+    window = AutoWebViewInspect()
     window.show()
     sys.exit(app.exec())

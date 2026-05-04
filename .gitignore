@@ -1,5 +1,6 @@
 __pycache__
 /WebDebuggerGo.spec
+/AutoWebViewInspect.spec
 /venv
 /dist
 /chrome_devtools_frontend

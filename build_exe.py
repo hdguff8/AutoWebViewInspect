@@ -11,13 +11,13 @@ def build_exe():
     os.chdir(project_root)
     
     # 确保图标路径正确
-    icon_file = 'WebDebuggerGo.ico' if os.path.exists(os.path.join(project_root, 'static/WebDebuggerGo.ico')) else 'WebDebuggerGo.png'
+    icon_file = 'App.ico' if os.path.exists(os.path.join(project_root, 'static/App.ico')) else 'App.png'
     icon_path = os.path.join(project_root, 'static', icon_file)
     
     # 打包参数
     params = [
         sys.executable, '-m', 'PyInstaller',
-        '--name=WebDebuggerGo',
+        '--name=AutoWebViewInspect',
         # '--onefile',             # 打包成单个 exe 文件
         '--onedir',              # 打包成文件夹模式 (多文件)
         '--noconsole',           # 运行时不显示控制台窗口
@@ -37,8 +37,8 @@ def build_exe():
         subprocess.run(params, check=True)
         print("\n" + "="*50)
         print("打包成功！")
-        print(f"生成的程序目录位于: {os.path.join(project_root, 'dist', 'WebDebuggerGo')}")
-        print(f"请运行其中的 WebDebuggerGo.exe")
+        print(f"生成的程序目录位于: {os.path.join(project_root, 'dist', 'AutoWebViewInspect')}")
+        print(f"请运行其中的 AutoWebViewInspect.exe")
         print("="*50)
     except subprocess.CalledProcessError as e:
         print(f"打包失败: {e}")

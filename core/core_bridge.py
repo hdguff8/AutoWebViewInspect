@@ -201,7 +201,7 @@ if __name__ == "__main__":
     last_target_ids = set()
     
     print("\n" + "="*60)
-    print("  WebDebugRS - 持续监测模式已启动")
+    print("  AutoWebViewInspect - 持续监测模式已启动")
     print("  正在后台自动同步 ADB 设备与 WebView 状态...")
     print("="*60 + "\n")
 

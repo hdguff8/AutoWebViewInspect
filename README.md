@@ -1,8 +1,8 @@
-![Banner](https://github.com/hdguff8/WebDebuggerGo/blob/main/static/WebDebuggerGoBanner.png?raw=true)
+![Banner](https://github.com/hdguff8/AutoWebViewInspect/blob/main/static/AutoWebViewInspectBanner.png?raw=true)
 
 > **为 Android/HBuilderX 开发者而生的全自动离线 WebView 调试利器。**
 
-**WebDebuggerGo** 是一款专为移动端 Web 开发者打造的自动化调试工具，旨在成为 `chrome://inspect` 更好用、更高效的替代方案。它彻底终结了在传统调试页面中加载缓慢、频繁重连的痛苦，让移动端调试回归流畅。
+**AutoWebViewInspect** 是一款专为移动端 Web 开发者打造的自动化调试工具，旨在成为 `chrome://inspect` 更好用、更高效的替代方案。它彻底终结了在传统调试页面中加载缓慢、频繁重连的痛苦，让移动端调试回归流畅。
 
 ---
 
@@ -20,24 +20,24 @@
 
 ### 1. 极致的调试面板
 深度还原 Chrome 原生调试体验，支持完整的断点调试、性能分析及网络抓包。
-![调试面板](https://github.com/hdguff8/WebDebuggerGo/blob/Resources/img/page-index-0.png?raw=true)
-![调试交互](https://github.com/hdguff8/WebDebuggerGo/blob/Resources/img/page-index-1.png?raw=true)
+![调试面板](https://github.com/hdguff8/AutoWebViewInspect/blob/Resources/img/page-index-0.png?raw=true)
+![调试交互](https://github.com/hdguff8/AutoWebViewInspect/blob/Resources/img/page-index-1.png?raw=true)
 
 ### 2. 自动化目标捕获
 实时监控手机端的 WebView 状态，自动捕获调试目标，让您专注于代码本身。
-![目标列表](https://github.com/hdguff8/WebDebuggerGo/blob/Resources/img/page-index-2.png?raw=true)
+![目标列表](https://github.com/hdguff8/AutoWebViewInspect/blob/Resources/img/page-index-2.png?raw=true)
 
 ### 3. 可视化 ADB 控制台
 集成 ADB 核心运维功能，通过 UI 界面快速排查设备连接问题，不再需要记忆复杂的命令行。
-![ADB管理](https://github.com/hdguff8/WebDebuggerGo/blob/Resources/img/page-adb.png?raw=true)
+![ADB管理](https://github.com/hdguff8/AutoWebViewInspect/blob/Resources/img/page-adb.png?raw=true)
 
 ### 4. 实时日志系统
 支持 DEBUG/INFO/WARN/ERROR 分级过滤，帮助您精准捕捉移动端的各种报错信息。
-![日志系统](https://github.com/hdguff8/WebDebuggerGo/blob/Resources/img/page-log.png?raw=true)
+![日志系统](https://github.com/hdguff8/AutoWebViewInspect/blob/Resources/img/page-log.png?raw=true)
 
 ### 5. 个性化系统设置
 轻松切换内置 ADB 与系统 ADB，灵活适配不同的开发环境需求。
-![系统设置](https://github.com/hdguff8/WebDebuggerGo/blob/Resources/img/page-setting.png?raw=true)
+![系统设置](https://github.com/hdguff8/AutoWebViewInspect/blob/Resources/img/page-setting.png?raw=true)
 
 ---
 
@@ -46,9 +46,9 @@
 #### 📦 开箱即用（推荐）
 **无需安装任何运行环境，解压即用。**
 
-1. 前往项目的 [**Releases 页面**](https://github.com/hdguff8/WebDebuggerGo/releases) 下载最新的绿色免安装包（rar）。 
+1. 前往项目的 [**Releases 页面**](https://github.com/hdguff8/AutoWebViewInspect/releases) 下载最新的绿色免安装包（rar）。 
 2. 将压缩包解压至任意目录。 
-3. 双击运行 `WebDebuggerGo.exe`。
+3. 双击运行 `AutoWebViewInspect.exe`。
 4. 连接手机（开启 **USB 调试**），在 App 内打开 WebView，调试窗口将自动弹出。
 
 ### 💻 源码运行
@@ -61,7 +61,7 @@ pip install -r dependence.txt
 ```
 
 #### 2. 资源配置
-- **DevTools 资源**：从 [Resources 分支](https://github.com/hdguff8/WebDebuggerGo/blob/Resources/chrome_devtools_frontend.rar) 下载 `chrome_devtools_frontend.rar`，解压至 `chrome_devtools_frontend/`。
+- **DevTools 资源**：从 [Resources 分支](https://github.com/hdguff8/AutoWebViewInspect/blob/Resources/chrome_devtools_frontend.rar) 下载 `chrome_devtools_frontend.rar`，解压至 `chrome_devtools_frontend/`。
 - **ADB 工具**：将 `adb.exe` 及其相关 DLL 放入 `adb/` 目录。
 
 #### 3. 启动程序
