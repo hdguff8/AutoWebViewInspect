@@ -7,6 +7,7 @@ class DebugPage(QFrame):
     check_devices_clicked = Signal()
     restart_adb_clicked = Signal()
     clear_forward_clicked = Signal()
+    release_adb_clicked = Signal(bool) # True 为释放（停止监控），False 为恢复监控
     check_responsive_clicked = Signal(str) # 发送选中的设备 ID
 
     def __init__(self, parent=None):
@@ -97,17 +98,30 @@ class DebugPage(QFrame):
         adb_controls = QHBoxLayout()
         self.btn_restart_adb = QPushButton("重启 ADB")
         self.btn_clear_forward = QPushButton("清理转发")
+        self.btn_toggle_monitoring = QPushButton("停止监控 (释放资源)")
+        self.btn_toggle_monitoring.setCheckable(True)
         
-        for btn in [self.btn_restart_adb, self.btn_clear_forward]:
-            btn.setFixedSize(130, 40)
+        for btn in [self.btn_restart_adb, self.btn_clear_forward, self.btn_toggle_monitoring]:
+            btn.setFixedSize(140, 40)
             btn.setCursor(Qt.PointingHandCursor)
-            btn.setStyleSheet("""
-                QPushButton { 
-                    background-color: #3e3e42; color: #cccccc; border: 1px solid #454545; 
-                    font-weight: bold; border-radius: 4px; 
-                }
-                QPushButton:hover { background-color: #d13438; color: white; border: 1px solid #d13438; }
-            """)
+            
+            if btn == self.btn_toggle_monitoring:
+                btn.setStyleSheet("""
+                    QPushButton { 
+                        background-color: #3e3e42; color: #cccccc; border: 1px solid #454545; 
+                        font-weight: bold; border-radius: 4px; 
+                    }
+                    QPushButton:checked { background-color: #d13438; color: white; border: 1px solid #d13438; }
+                    QPushButton:hover { background-color: #4e4e52; }
+                """)
+            else:
+                btn.setStyleSheet("""
+                    QPushButton { 
+                        background-color: #3e3e42; color: #cccccc; border: 1px solid #454545; 
+                        font-weight: bold; border-radius: 4px; 
+                    }
+                    QPushButton:hover { background-color: #d13438; color: white; border: 1px solid #d13438; }
+                """)
             adb_controls.addWidget(btn)
         adb_controls.addStretch()
         adb_layout.addLayout(adb_controls)
@@ -133,6 +147,8 @@ class DebugPage(QFrame):
                        "请确保手机已通过 USB 连接电脑，并开启了【开发者选项】中的【USB 调试】。")
         self.add_guide_item(guide_layout, "2. 列表刷不出来页面？", 
                        "请确认手机 App 已经打开了 WebView 页面。如果仍未显示，请尝试点击下方的【重启 ADB】。")
+        self.add_guide_item(guide_layout, "3. 如何让 Edge/Chrome 重新看到设备？", 
+                       "由于本工具会持续占用 ADB 调试端口进行自动转发，如果您需要使用浏览器自带的 inspect 功能，请点击下方的【停止监控】按钮释放资源。")
 
         debug_layout.addWidget(guide_container)
         debug_layout.addStretch()
@@ -141,7 +157,18 @@ class DebugPage(QFrame):
         self.btn_check_devices.clicked.connect(self.check_devices_clicked.emit)
         self.btn_restart_adb.clicked.connect(self.restart_adb_clicked.emit)
         self.btn_clear_forward.clicked.connect(self.clear_forward_clicked.emit)
+        self.btn_toggle_monitoring.clicked.connect(self.on_toggle_monitoring)
         self.btn_check_responsive.clicked.connect(lambda: self.check_responsive_clicked.emit(self.device_selector.currentText()))
+
+    def on_toggle_monitoring(self):
+        is_released = self.btn_toggle_monitoring.isChecked()
+        if is_released:
+            self.btn_toggle_monitoring.setText("恢复监控 (重新捕获)")
+            self.status_label.setText("监控已停止，ADB 资源已释放")
+        else:
+            self.btn_toggle_monitoring.setText("停止监控 (释放资源)")
+            self.status_label.setText("监控中...")
+        self.release_adb_clicked.emit(is_released)
 
     def add_guide_item(self, layout, title, desc):
         item_layout = QVBoxLayout()
@@ -169,3 +196,4 @@ class DebugPage(QFrame):
         self.btn_restart_adb.setEnabled(enabled)
         self.btn_clear_forward.setEnabled(enabled)
         self.btn_check_responsive.setEnabled(enabled)
+        self.btn_toggle_monitoring.setEnabled(enabled)

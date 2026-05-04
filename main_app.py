@@ -188,6 +188,7 @@ class WebDebuggerGo(QMainWindow):
         self.debug_page.check_devices_clicked.connect(self.quick_check_devices)
         self.debug_page.restart_adb_clicked.connect(self.quick_restart_adb)
         self.debug_page.clear_forward_clicked.connect(self.quick_clear_forward)
+        self.debug_page.release_adb_clicked.connect(self.toggle_adb_monitoring)
         self.debug_page.check_responsive_clicked.connect(self.quick_check_responsiveness)
         
         # Settings 页面事件
@@ -200,6 +201,24 @@ class WebDebuggerGo(QMainWindow):
     def on_log_filter_changed(self, level):
         # 仅刷新显示，不删除 all_logs 中的日志
         self.refresh_log_display()
+
+    def toggle_adb_monitoring(self, is_released):
+        """处理 ADB 监控的停止与恢复"""
+        if is_released:
+            self.logger("正在停止监控并释放 ADB 资源...", "INFO")
+            if hasattr(self, 'scan_worker') and self.scan_worker.isRunning():
+                self.scan_worker.stop()
+            # 执行一次清理转发，确保其他工具可以接管端口
+            self.bridge.run_cmd(['adb', 'forward', '--remove-all'])
+            self.logger("ADB 监控已停止，资源已释放", "INFO")
+        else:
+            self.logger("正在恢复 ADB 监控...", "INFO")
+            # 重新创建并启动扫描线程
+            if not hasattr(self, 'scan_worker') or not self.scan_worker.isRunning():
+                self.scan_worker = ScanWorker(self.bridge)
+                self.scan_worker.targets_found.connect(self.on_targets_found)
+                self.scan_worker.start()
+            self.logger("ADB 监控已恢复", "INFO")
 
     def _init_late(self):
         QShortcut(QKeySequence("F5"), self).activated.connect(self.browser.reload)
@@ -389,9 +408,18 @@ class WebDebuggerGo(QMainWindow):
             debuggable = [t for t in targets if t.get('webSocketDebuggerUrl')]
             if debuggable: self.load_target(debuggable[0])
 
-        if not self.debug_page.btn_check_devices.isEnabled() == False:
-            all_devices = sorted(list(set(t.get('device') for t in targets if t.get('device'))))
-            self.debug_page.update_devices(all_devices)
+        if self.debug_page.btn_check_devices.isEnabled():
+            # 获取当前下拉菜单中的所有设备
+            existing_devices = [self.debug_page.device_selector.itemText(i) for i in range(self.debug_page.device_selector.count())]
+            # 获取当前发现的目标所属的所有设备
+            target_devices = list(set(t.get('device') for t in targets if t.get('device')))
+            
+            # 合并设备列表（并集）
+            all_devices = sorted(list(set(existing_devices + target_devices)))
+            
+            if all_devices and set(all_devices) != set(existing_devices):
+                # 只有当设备列表发生变化时才更新，且不主动清空已有设备
+                self.debug_page.update_devices(all_devices)
 
         if targets: self.known_page_ids.update(current_ids)
         self.update_tree_ui(device_groups)

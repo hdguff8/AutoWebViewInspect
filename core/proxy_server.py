@@ -85,6 +85,9 @@ class WSProxyThread(threading.Thread):
                     if s is client_sock:
                         target_sock.sendall(payload)
                     else:
+                        # 拦截并丢弃 DevTools 不支持的协议消息，防止前端报错
+                        if b"Network.responseReceivedExtraInfo" in payload:
+                            continue
                         client_sock.sendall(payload)
         except Exception:
             pass
