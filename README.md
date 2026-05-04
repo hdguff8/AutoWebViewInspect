@@ -1,4 +1,4 @@
-![Banner](https://github.com/hdguff8/AutoWebViewInspect/blob/main/static/AutoWebViewInspectBanner.png?raw=true)
+![Banner](https://github.com/hdguff8/AutoWebViewInspect/blob/Resources/img/AutoWebViewInspectBanner.png?raw=true)
 
 > **为 Android/HBuilderX 开发者而生的全自动离线 WebView 调试利器。**
 

@@ -121,11 +121,12 @@ class CommandWorker(QThread):
             self.finished.emit(None)
 
 class AutoWebViewInspect(QMainWindow):
+    VERSION = "v0.1.1"
     log_received = Signal(object)
 
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("AutoWebViewInspect - 自动化离线调试终端")
+        self.setWindowTitle(f"AutoWebViewInspect {self.VERSION} - 自动化离线调试终端")
         self.resize(1400, 900)
         
         # 1. 初始化数据与组件
@@ -169,6 +170,7 @@ class AutoWebViewInspect(QMainWindow):
         self.debug_page = DebugPage()
         self.log_page = LogPage()
         self.settings_page = SettingsPage()
+        self.settings_page.set_version(self.VERSION)
         
         self.setup_ui()
         self.bind_events()

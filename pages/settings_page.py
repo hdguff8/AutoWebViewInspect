@@ -86,6 +86,18 @@ class SettingsPage(QFrame):
         conflict_layout.addWidget(hint_desc)
         container_layout.addLayout(conflict_layout)
 
+        line2 = QFrame()
+        line2.setFrameShape(QFrame.HLine)
+        line2.setStyleSheet("background-color: #3c3c3c; max-height: 1px; border: none;")
+        container_layout.addWidget(line2)
+
+        # 4. 系统信息
+        info_layout = QVBoxLayout()
+        self.version_label = QLabel("系统版本: v0.1.0")
+        self.version_label.setStyleSheet("color: #888888; font-size: 13px; border: none;")
+        info_layout.addWidget(self.version_label)
+        container_layout.addLayout(info_layout)
+
         settings_layout.addWidget(self.settings_container)
         settings_layout.addStretch()
 
@@ -94,3 +106,6 @@ class SettingsPage(QFrame):
 
     def set_status(self, text):
         self.settings_status.setText(text)
+
+    def set_version(self, version):
+        self.version_label.setText(f"系统版本: {version}")
