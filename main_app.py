@@ -195,6 +195,11 @@ class WebDebuggerGo(QMainWindow):
         
         # Log 页面事件
         self.log_page.btn_clear_logs.clicked.connect(self.clear_logs)
+        self.log_page.filter_changed.connect(self.on_log_filter_changed)
+
+    def on_log_filter_changed(self, level):
+        # 仅刷新显示，不删除 all_logs 中的日志
+        self.refresh_log_display()
 
     def _init_late(self):
         QShortcut(QKeySequence("F5"), self).activated.connect(self.browser.reload)

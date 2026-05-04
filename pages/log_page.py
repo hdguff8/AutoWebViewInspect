@@ -5,6 +5,8 @@ from PySide6.QtGui import QTextCharFormat, QColor, QTextCursor
 
 class LogPage(QWidget):
     """日志显示页面"""
+    filter_changed = Signal(int) # 发送新的过滤等级
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.current_filter_level = 0
@@ -37,7 +39,9 @@ class LogPage(QWidget):
         toolbar_layout.setContentsMargins(10, 0, 10, 0)
         toolbar_layout.setSpacing(10)
 
-        toolbar_layout.addWidget(QLabel("日志筛选:"))
+        label_filter = QLabel("日志筛选:")
+        label_filter.setStyleSheet("color: white;")
+        toolbar_layout.addWidget(label_filter)
         self.level_filter = QComboBox()
         self.level_filter.addItems(["DEBUG", "INFO", "WARN", "ERROR"])
         self.level_filter.setStyleSheet("background-color: #3e3e42; color: white; border: 1px solid #454545; padding: 2px;")
@@ -68,9 +72,7 @@ class LogPage(QWidget):
     def on_filter_changed(self, index):
         level_str = self.level_filter.currentText()
         self.current_filter_level = self.log_level_map.get(level_str, 0)
-        # 通知父窗口需要刷新日志显示
-        if hasattr(self.parent(), 'refresh_log_display'):
-            self.parent().refresh_log_display()
+        self.filter_changed.emit(self.current_filter_level)
 
     def clear(self):
         self.log_view.clear()
