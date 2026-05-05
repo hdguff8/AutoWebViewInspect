@@ -1,6 +1,6 @@
 ![Banner](https://github.com/hdguff8/AutoWebViewInspect/blob/Resources/img/AutoWebViewInspectBanner.png?raw=true)
 
-> **为 Android/HBuilderX 开发者而生的全自动离线 WebView 调试利器。**
+> **为 Android 开发者而生的全自动离线 WebView 调试利器。**
 
 **AutoWebViewInspect** 是一款专为移动端 Web 开发者打造的自动化调试工具，旨在成为 `chrome://inspect` 更好用、更高效的替代方案。它彻底终结了在传统调试页面中加载缓慢、频繁重连的痛苦，让移动端调试回归流畅。
 
@@ -9,7 +9,7 @@
 ## 🚀 核心亮点
 
 - **🌐 不挑网络环境**：内置完整 Chromium 调试资源，彻底告别“因无法连接 Google 服务器导致调试页白屏”的尴尬，内网、离线环境均可毫秒级加载。
-- **💎 与 Chrome 一致的体验**：深度集成 Chrome DevTools 引擎，熟悉的 Console、Elements、Network、Application 等功能应有尽有。
+- **💎 与 Chrome 一致的体验**：集成 Chrome DevTools 引擎，熟悉的 Console、Elements、Network、Application 等功能应有尽有。
 - **⚡ 全自动 WebView 探测**：无需手动寻找目标。即插即用，系统自动轮询并完成端口转发，瞬间唤起调试窗口；App 关闭时自动回收资源。
 - **📱 透明的 ADB 设备管理**：可视化管理多设备连接，支持一键重启 ADB 服务、清理转发异常，让连接状态一目了然。
 - **📦 零配置上手**：无需安装 Python 或配置复杂的环境变量。下载 RAR 免安装包，自带运行环境，双击即可开始开发。
@@ -19,7 +19,7 @@
 ## ✨ 软件功能
 
 ### 1. 极致的调试面板
-深度还原 Chrome 原生调试体验，支持完整的断点调试、性能分析及网络抓包。
+Chrome 原生调试体验，支持完整的断点调试、性能分析及网络抓包。
 ![调试面板](https://github.com/hdguff8/AutoWebViewInspect/blob/Resources/img/page-index-0.png?raw=true)
 ![调试交互](https://github.com/hdguff8/AutoWebViewInspect/blob/Resources/img/page-index-1.png?raw=true)
 
